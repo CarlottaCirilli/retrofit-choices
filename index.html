@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Degrees of Freedom | Interactive Facade</title>
+<link href="styles.css" rel="stylesheet"/>
+</head>
+<body>
+<main class="page">
+<header class="hero">
+<p class="kicker">Generali building</p>
+<h1>Retrofit Choices</h1>
+<p class="intro">Explore how you can adapt the project as a stakeholder, while keeping the design logic coherent.</p>
+</header>
+<!-- FIRST BAND: ARCHITECT -->
+<section class="band architect-band" id="architect">
+<div class="band-label">
+<span>01</span>
+<h2>Architect</h2>
+</div>
+<div class="interactive-layout">
+<div class="elevation-card">
+<div aria-live="polite" class="elevation-frame" id="elevationFrame"></div>
+<div class="image-caption">
+<strong id="combinationLabel">Tube variation: 0 · Curve geometry: 2</strong>
+</div>
+</div>
+<div class="controls-card">
+<h3>Modify the shading geometry</h3>
+<p>Use the first slider to add or remove one tube. Use the second slider to test three different curve geometries. Each combination updates the elevation, without compromising the building performances.</p>
+<div class="slider-group">
+<div class="slider-header">
+<label for="tubeVariation">Tube variation</label>
+</div>
+<input class="dof-slider" id="tubeVariation" max="1" min="-1" step="1" type="range" value="0"/>
+<div aria-hidden="true" class="ticks">
+<span>-1<br/><small>one tube removed</small></span>
+<span>0<br/><small>unchanged</small></span>
+<span>+1<br/><small>one tube added</small></span>
+</div>
+</div>
+<div class="slider-group">
+<div class="slider-header">
+<label for="curveGeometry">Curve geometry</label>
+</div>
+<input class="dof-slider" id="curveGeometry" max="3" min="1" step="1" type="range" value="2"/>
+<div aria-hidden="true" class="ticks">
+<span>Geometry 1</span>
+<span>Geometry 2</span>
+<span>Geometry 3</span>
+</div>
+</div>
+</div>
+</div>
+<div class="architect-curve-tool">
+<div class="curve-tool-header">
+<div>
+<p class="dashboard-kicker">Parametric curve control</p>
+<h2>Control the parametric curve</h2>
+</div>
+<p>Drag the two control points to reshape the stepped horizontal bands. The curve is mirrored floor by floor, like a simplified Graph Mapper.</p>
+</div>
+<div class="curve-tool-layout">
+<div class="curve-facade-card">
+<svg aria-label="Stepped façade diagram" class="curve-facade-svg" id="facadeSvg" viewbox="0 0 1400 720">
+<rect fill="#edf3f8" height="720" width="1400"></rect>
+<g id="facadeGrid"></g>
+<g id="facadeRects"></g>
+<g id="facadeCurve"></g>
+</svg>
+</div>
+<div class="curve-controls-card">
+<svg aria-label="Curve mapper with draggable points" class="mapper" id="mapper" viewbox="0 0 420 260">
+<rect height="260" rx="18" width="420" x="0" y="0"></rect>
+<g class="grid" id="mapperGrid"></g>
+<path class="mapper-curve" d="" id="mapperCurve"></path>
+<path class="mapper-steps" d="" id="mapperSteps"></path>
+<line class="handle-line" id="handleLine1" x1="54" x2="140" y1="130" y2="80"></line>
+<line class="handle-line" id="handleLine2" x1="366" x2="280" y1="130" y2="178"></line>
+<circle class="control-point" cx="140" cy="80" id="point1" r="8"></circle>
+<circle class="control-point" cx="280" cy="178" id="point2" r="8"></circle>
+</svg>
+<div class="slider-group compact-slider">
+<div class="slider-header">
+<label for="gapSlider">Horizontal void size</label>
+</div>
+<input class="dof-slider" id="gapSlider" max="44" min="16" step="2" type="range" value="26"/>
+<div aria-hidden="true" class="ticks">
+<span>narrow</span>
+<span>medium</span>
+<span>wide</span>
+</div>
+</div>
+<button class="modal-button curve-reset-button" id="resetButton" type="button">Reset curve</button>
+</div>
+</div>
+</div>
+</section>
+<!-- SECOND BAND: USER -->
+<section class="band user-band" id="user">
+<div class="band-label">
+<span>02</span>
+<h2>User</h2>
+</div>
+<div class="interactive-layout">
+<div class="elevation-card">
+<div aria-live="polite" class="elevation-frame" id="userFrame"></div>
+<div class="image-caption">
+<strong id="userLabel">Curtain: medium</strong>
+</div>
+<div aria-live="polite" class="kpi-row" id="userKpis"></div>
+</div>
+<div class="controls-card">
+<h3>Adapt comfort preferences</h3>
+<p>The image becomes a reflection of your choice, translating each adjustment of light temperature and blind closure into a specific atmosphere of comfort.</p>
+<div class="slider-group">
+<div class="slider-header">
+<label for="curtainPosition">Curtain position</label>
+</div>
+<input class="dof-slider" id="curtainPosition" max="3" min="1" step="1" type="range" value="2"/>
+<div aria-hidden="true" class="ticks">
+<span>High curtain</span>
+<span>Medium curtain</span>
+<span>Low curtain</span>
+</div>
+</div>
+<div class="slider-group">
+<div class="slider-header">
+<label for="lightTemperature">Light temperature</label>
+</div>
+<input class="dof-slider" id="lightTemperature" max="3" min="1" step="1" type="range" value="2"/>
+<div aria-hidden="true" class="ticks">
+<span>Warm light</span>
+<span>Medium light</span>
+<span>Cold light</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="band manager-band" id="manager">
+<div class="band-label">
+<span>03</span>
+<h2>Building Manager</h2>
+</div>
+<div class="interactive-layout manager-layout">
+<div class="elevation-card">
+<div class="manager-dashboard">
+<div class="manager-topline">
+<div>
+<p class="dashboard-kicker">Investment roadmap</p>
+<h2 id="managerScenarioTitle">Scenario B</h2>
+</div>
+<div class="lcc-card">
+<span>Final LCC</span>
+<strong id="managerLcc">92.6 €/m²</strong>
+</div>
+
+<div class="chart-legend">
+<span><i class="legend-investment"></i> Investment / maintenance</span>
+<span><i class="legend-saving"></i> Bill saving</span>
+</div>
+</div>
+<div aria-live="polite" class="bar-chart" id="barChart"></div>
+</div>
+<div class="image-caption">
+<strong id="managerLabel">Glazing replacement in 2050</strong>
+<span id="managerText">Balanced roadmap: no immediate major envelope replacement, upgrade before harsher future climates.</span>
+</div>
+<button class="modal-button" id="openInterventions" type="button">Open intervention plan</button>
+</div>
+<div class="controls-card">
+<h3>Choose the investment timing</h3>
+<p>Move the slider to explore three possible investment roadmaps. Each scenario shows when the building manager invests in façade maintenance or replacement, and how this timing affects yearly costs and expected bill savings.</p>
+<div class="slider-group">
+<div class="slider-header">
+<label for="managerScenario">Scenario</label>
+</div>
+<input class="dof-slider" id="managerScenario" max="2" min="0" step="1" type="range" value="1"/>
+<div aria-hidden="true" class="ticks">
+<span>Scenario A<br/><small>replace now</small></span>
+<span>Scenario B<br/><small>replace in 2050</small></span>
+<span>Scenario C<br/><small>replace in 2080</small></span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div aria-hidden="true" class="modal-overlay" id="interventionModal">
+<div aria-labelledby="modalTitle" aria-modal="true" class="modal-panel" role="dialog">
+<div class="modal-header">
+<div>
+<p class="dashboard-kicker">Maintenance and adaptation plan</p>
+<h3 id="modalTitle">Scenario B intervention plan</h3>
+</div>
+<button aria-label="Close intervention plan" class="modal-close" id="closeInterventions" type="button">×</button>
+</div>
+<div class="intervention-list" id="interventionList"></div>
+</div>
+</div>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
